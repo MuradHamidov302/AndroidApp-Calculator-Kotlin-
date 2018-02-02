@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
-import java.text.ParseException
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,92 +15,153 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    var numadd:String=""
-    var cavab=""
-    var num1:Int=0
-    var num2=0
-    var hesab=0
+    var h=0
+    var q=0
+    var r1=0
+    var r2=0
+    var numAdd=""
+    var num=0
     var emeliyyat=""
+    val listreqem= arrayListOf<Int>()
+    var text=""
 
-    fun reqem(v: View) {
-        number.text=""
-        val b = v as Button
-        val buttonText = b.text.toString()
+    fun reqem(view:View){
 
-        numadd += buttonText
-        number.text = numadd
-    }
+      val b=view as Button
+        var btext=b.text.toString()
 
-    fun topla(v: View){
-        emeliyyat="+"
-        num1=number.text.toString().toInt()
-      cavab=number.text.toString()+ "+"
-        cavabtext.text=cavab
-        number.text=""
-        numadd=""
-    }
+         numAdd+=btext
+        var r=numAdd
 
-    fun cix(v: View){
-        emeliyyat="-"
-        num1=number.text.toString().toInt()
-        cavab=number.text.toString()+ "-"
-        cavabtext.text=cavab
-        number.text=""
-        numadd=""
-    }
+       number.text=numAdd
+     }
 
-    fun vur(v: View){
-        emeliyyat="*"
-        num1=number.text.toString().toInt()
-        cavab=number.text.toString()+ "*"
-        cavabtext.text=cavab
-        number.text=""
-        numadd=""
-    }
-
-    fun bol(v: View){
-        emeliyyat="/"
-        num1=number.text.toString().toInt()
-        cavab=number.text.toString()+ "/"
-        cavabtext.text=cavab
-        number.text=""
-        numadd=""
-    }
-
-    fun beraber(v: View){
-        num2=number.text.toString().toInt()
-        cavab+=number.text
-        cavabtext.text=cavab
-
-        if (emeliyyat=="+"){
-            hesab= num1+num2
-        }else if (emeliyyat=="-"){
-            hesab= num1-num2
-        }else if(emeliyyat=="*"){
-            hesab= num1*num2
+    fun topla(view:View){
+        num=numAdd.toInt()
+        text+=num.toString()+"+"
+        numAdd=""
+        d=1
+        if(emeliyyat=="*"){
+            r2=num
+            Emeliyyat1()
+            listreqem.add(h)
         }else if(emeliyyat=="/"){
-            hesab= num1/num2
+            r2=num
+            Emeliyyat1()
+            listreqem.add(q)
         }
 
-        number.text=hesab.toString()
+        cavabtext.text=text
+        Emeliyyat1()
+        emeliyyat="+"
+        r1=h
+    }
 
-        numadd=""
-        cavab=""
-        num1=0
-        num2=0
-        hesab=0
+    var d=1
+    fun vur(v:View){
+        num=numAdd.toInt()
+        text+=num.toString()+"*"
+        numAdd=""
+        d++
+        emeliyyat="*"
+        if(emeliyyat=="*"){
+            if (d>=3){
+                r2=num
+                Emeliyyat1()
+
+            }
+            r1=num
+
+            cavabtext.text=text
+        }
 
     }
+
+    fun bol(v:View){
+        num=numAdd.toInt()
+        text+=num.toString()+"/"
+        numAdd=""
+        d++
+        emeliyyat="/"
+        if(emeliyyat=="/"){
+            if (d==3){
+                r2=num
+                Emeliyyat1()
+                d=1
+            }
+            r1=num
+
+            cavabtext.text=text
+        }
+    }
+
+    fun beraber(v:View){
+        num=numAdd.toInt()
+        text+=num.toString()+"="
+        numAdd=""
+        if(emeliyyat=="*"){
+            r2=num
+            Emeliyyat1()
+
+            listreqem.add(h)
+        }else if(emeliyyat=="/"){
+            r2=num
+            Emeliyyat1()
+
+            listreqem.add(q)
+        }else if(emeliyyat=="+"){
+            listreqem.add(num)
+        }
+        var sum=""
+        var c=0
+        while (c<listreqem.count()){
+            sum+=listreqem[c].toString()+"-"
+            c++
+
+        }
+        number.text=sum
+    Hesab()
+
+        cavabtext.text=text
+
+    }
+
+    fun Hesab(){
+        var sum=0
+        var c=0
+        while (c<listreqem.count()){
+            sum+=listreqem[c]
+            c++
+
+        }
+        number.text=sum.toString()
+    }
+
+    fun Emeliyyat1(){
+        if(emeliyyat=="*"){
+           num= r1*r2
+            h=num
+        }else if(emeliyyat=="/"){
+            num= r1/r2
+            q=num
+        }else if(emeliyyat=="+"||emeliyyat==""){
+            listreqem.add(num)
+        }
+    }
+
 
     fun sil(v: View){
-        numadd=""
-        cavab=""
-        num1=0
-        num2=0
-        hesab=0
+        h=0
+        q=0
+        r1=0
+        r2=0
+        numAdd=""
+        num=0
+        emeliyyat=""
+        listreqem.clear()
+        text=""
         cavabtext.text=""
-        number.text=""
+        number.text="0"
     }
-
 
 }
