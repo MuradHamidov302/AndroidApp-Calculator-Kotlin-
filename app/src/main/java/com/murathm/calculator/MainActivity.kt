@@ -6,8 +6,6 @@ import android.view.View
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
-
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,19 +20,20 @@ class MainActivity : AppCompatActivity() {
     var numAdd=""
     var num=0
     var emeliyyat=""
-    val listreqem= arrayListOf<Int>()
     var text=""
+
+    // vurma bolme sonra reqmler add olunur  (+)
+    val listreqem= arrayListOf<Int>()
 
     fun reqem(view:View){
 
-      val b=view as Button
+        val b=view as Button
         var btext=b.text.toString()
 
-         numAdd+=btext
+        numAdd+=btext
         var r=numAdd
-
-       number.text=numAdd
-     }
+        number.text=numAdd
+    }
 
     fun topla(view:View){
         num=numAdd.toInt()
@@ -50,14 +49,15 @@ class MainActivity : AppCompatActivity() {
             Emeliyyat1()
             listreqem.add(q)
         }
-
         cavabtext.text=text
         Emeliyyat1()
         emeliyyat="+"
         r1=h
     }
 
+    //d vurma ve bolme ardicilligini temin edir (a*b*c)
     var d=1
+
     fun vur(v:View){
         num=numAdd.toInt()
         text+=num.toString()+"*"
@@ -68,13 +68,10 @@ class MainActivity : AppCompatActivity() {
             if (d>=3){
                 r2=num
                 Emeliyyat1()
-
             }
             r1=num
-
             cavabtext.text=text
         }
-
     }
 
     fun bol(v:View){
@@ -90,7 +87,6 @@ class MainActivity : AppCompatActivity() {
                 d=1
             }
             r1=num
-
             cavabtext.text=text
         }
     }
@@ -102,12 +98,10 @@ class MainActivity : AppCompatActivity() {
         if(emeliyyat=="*"){
             r2=num
             Emeliyyat1()
-
             listreqem.add(h)
         }else if(emeliyyat=="/"){
             r2=num
             Emeliyyat1()
-
             listreqem.add(q)
         }else if(emeliyyat=="+"){
             listreqem.add(num)
@@ -117,14 +111,12 @@ class MainActivity : AppCompatActivity() {
         while (c<listreqem.count()){
             sum+=listreqem[c].toString()+"-"
             c++
-
         }
         number.text=sum
-    Hesab()
-
+        Hesab()
         cavabtext.text=text
-
     }
+
 
     fun Hesab(){
         var sum=0
@@ -132,14 +124,13 @@ class MainActivity : AppCompatActivity() {
         while (c<listreqem.count()){
             sum+=listreqem[c]
             c++
-
         }
         number.text=sum.toString()
     }
 
     fun Emeliyyat1(){
         if(emeliyyat=="*"){
-           num= r1*r2
+            num= r1*r2
             h=num
         }else if(emeliyyat=="/"){
             num= r1/r2
@@ -148,7 +139,6 @@ class MainActivity : AppCompatActivity() {
             listreqem.add(num)
         }
     }
-
 
     fun sil(v: View){
         h=0
